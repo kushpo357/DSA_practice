@@ -8,39 +8,39 @@ using namespace std;
 
 class Solution {
   public:
-    int countOfSubstrings(string S, int k) {
-        // code here 
-        unordered_map<char,int> mp ;
+    int countOfSubstrings(string S, int K) {
+        //code here
         
-        int i = 0 ;
-        int n = S.length() ; // 4
+        int ans = 0, dist = 0, n = S.size();
         
-        while( i < k-1 ) // 
+        
+        vector<int> fre(26, 0);
+        for(int i = 0; i < K; i++)
         {
-            mp[S[i]]++ ;
-            i++ ;
+            fre[S[i]-'a']++;
+            if(fre[S[i]-'a']==1)
+                dist++;    
         }
         
-        int cnt = 0 ;
-        while( i < n )
+        
+        if(dist==K-1)
+            ans++;
+           
+        
+        for(int i = K; i < n; i++)
         {
-            mp[S[i]]++ ;
-            
-            if( mp.size() == k-1 )
-            {
-                cnt++ ;
-            }
-            
-            mp[S[i-(k-1)]]-- ; 
-            if( mp[S[i-(k-1)]] == 0 ) 
-            {
-                mp.erase( S[i-(k-1)] ) ;
-            }
-            i++ ;
+            fre[S[i-K]-'a']--;
+            if(fre[S[i-K]-'a']==0)
+                dist--;
+            fre[S[i]-'a']++;
+            if(fre[S[i]-'a']==1)
+                dist++;
+                
+            if(dist==K-1)
+                ans++;
         }
         
-        return cnt ;
-        
+        return ans;
     }
 };
 
