@@ -116,8 +116,10 @@ public:
         if(maxm < __gcd(root->left->data, root->right->data))
         {
             maxm = max(maxm, __gcd(root->left->data, root->right->data));
-            a = max(a, root->data);
+            a=root->data;
         }
+        
+        if(maxm == __gcd(root->left->data, root->right->data)) a = max(a, root->data);
     }
     
     int maxGCD(Node* root)
